@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="retailstore:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="mongoShop.war">
+      <element id="artifact" artifact-name="retailstore:war exploded" />
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head />
+<body>
+<ui:composition template="common.xhtml">
+<ui:define name="pageTitle">
+     <h:outputText value="Product Search"></h:outputText>
+</ui:define>
+
+<ui:define name="content">
+    <h:form id="searchForm">
+        <p:growl id="mainGrowl" sticky="true"></p:growl>
+        <p:panelGrid style="width: 1024px">
+            <f:facet name="header">
+                <p:row>
+                    <p:column colspan="4">
+                        Product Search
+                    </p:column>
+                </p:row>
+            </f:facet>
+            <p:row>
+                <p:column>
+                    <h:outputLabel for="sku" value="Sku"></h:outputLabel>
+                </p:column>
+                <p:column>
+                    <p:inputText id="sku" value="#{productSearchBean.criteria.sku}"></p:inputText>
+                </p:column>
+                <p:column>
+                    <p:selectOneMenu id="productType" label="Type" value="#{productSearchBean.criteria.productType}">
+                        <f:selectItem itemLabel="Select One" itemValue=""></f:selectItem>
+                        <f:selectItem itemLabel="Audio Album" itemValue="Audio Album"></f:selectItem>
+                        <f:selectItem itemLabel="Book" itemValue="Book"></f:selectItem>
+                    </p:selectOneMenu>
+                </p:column>
+            </p:row>
+            <p:row>
+                <p:column>
+                    <h:outputLabel for="title" value="Title"></h:outputLabel>
+                </p:column>
+                <p:column>
+                    <p:inputText id="title" value="#{productSearchBean.criteria.title}"></p:inputText>
+                </p:column>
+            </p:row>
+            <p:row>
+                <p:column>
+                    <h:outputLabel for="description" value="Description"></h:outputLabel>
+                </p:column>
+                <p:column>
+                    <p:inputText id="description" value="#{productSearchBean.criteria.description}"></p:inputText>
+                </p:column>
+            </p:row>
+            <p:row>
+                <p:column>
+                    <h:outputLabel for="chapter" value="Chapter"></h:outputLabel>
+                </p:column>
+                <p:column>
+                    <p:inputText id="chapter" value="#{productSearchBean.criteria.chapter}"></p:inputText>
+                </p:column>
+            </p:row>
+        </p:panelGrid>
+
+        <p:commandButton value="search" icon="ui-icon-search" actionListener="#{productSearchBean.doSearch}" update="dataTable"></p:commandButton>
+        <hr/>
+        <p:dataTable id="dataTable" var="prod" value="#{productSearchBean.productList}" paginator="true" rows="10">
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Sku"></h:outputText>
+                </f:facet>
+                    <h:outputText value="#{prod.sku}"></h:outputText>
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Type"></h:outputText>
+                </f:facet>
+                <h:outputText value="#{prod.type}"></h:outputText>
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Title"></h:outputText>
+                </f:facet>
+                <h:outputText value="#{prod.title}"></h:outputText>
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Publisher"></h:outputText>
+                </f:facet>
+                <h:outputText value="#{prod.publisher}"></h:outputText>
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Artist"></h:outputText>
+                </f:facet>
+                <h:outputText value="#{prod.details.artist}"></h:outputText>
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Author"></h:outputText>
+                </f:facet>
+                <h:outputText value="#{prod.details.author}"></h:outputText>
+            </p:column>
+
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Edit"></h:outputText>
+                </f:facet>
+                <p:commandButton value="Edit" action="#{productSearchBean.doEditDetail}" ajax="false">
+                    <f:setPropertyActionListener value="#{prod}" target="#{productSearchBean.selectedProduct}"></f:setPropertyActionListener>
+                </p:commandButton>
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Delete"></h:outputText>
+                </f:facet>
+                <p:commandButton id="showDialogButton" value="Delete" action="#{productSearchBean.doEditDetail}" oncomplete="confirmation.show()" ajax="true" update=":searchForm:confirmDialog">
+                    <f:setPropertyActionListener value="#{prod}" target="#{productSearchBean.selectedProduct}"></f:setPropertyActionListener>
+                </p:commandButton>
+            </p:column>
+        </p:dataTable>
+
+        <p:confirmDialog id="confirmDialog" message="Are you sure to delete this product (#{productSearchBean.selectedProduct.sku})?"
+            header="Delete Product" severity="alert" widgetVar="confirmation">
+
+            <p:commandButton id="confirm" value="Yes" update="mainGrowl" oncomplete="confirmation.hide()" actionListener="#{productSearchBean.doDelete}"></p:commandButton>
+            <p:commandButton id="decline" value="No" onclick="confirmation.hide()" type="button"></p:commandButton>
+
+        </p:confirmDialog>
+
+    </h:form>
+</ui:define>
+</ui:composition>
+</body>
+</html>

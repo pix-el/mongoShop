@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<f:view locale="en">
+    <h:head>
+        <f:facet name="first">
+            <meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta>
+            <title><ui:insert name="pageTitle">Page Title</ui:insert></title>
+            <ui:insert name="head"></ui:insert>
+        </f:facet>
+    </h:head>
+    <h:body>
+         <div style="margin:auto; width:1024px;">
+             <div id="header" class="ui-widget">
+                 <div id="logo" style="border:1px solid #acbece; border-bottom: none">
+                     <p:graphicImage value="/resources/image/mongoshopheader.jpg"></p:graphicImage>
+                 </div>
+                 <div id="menu" style="border:1px solid #acbece;">
+                    <p:menubar style="border: none">
+                        <p:menuitem value="Search" url="/search.jsf" icon="ui-icon-search"></p:menuitem>
+                        <p:menuitem value="New Product" url="/detail.jsf" icon="ui-icon-document"></p:menuitem>
+                    </p:menubar>
+                 </div>
+             </div>
+             <div id="page" class="ui-widget" style="overflow: hidden">
+                     <div id="content" style="display: block">
+                        <ui:insert name ="content"></ui:insert>
+                    </div>
+             </div>
+         </div>
+    </h:body>
+</f:view>
+</html>

@@ -1,0 +1,10 @@
+com\retailstore\model\Pricing.class
+com\retailstore\repository\ProductRepositoryCustom.class
+com\retailstore\model\Detail.class
+com\retailstore\view\ProductSearchCriteria.class
+com\retailstore\model\Product.class
+com\retailstore\repository\ProductRepository.class
+com\retailstore\repository\impl\ProductRepositoryImpl.class
+com\retailstore\view\ProductSearchBean.class
+com\retailstore\service\ProductService.class
+com\retailstore\view\ProductDetailBean.class
